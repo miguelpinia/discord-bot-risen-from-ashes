@@ -7,7 +7,27 @@ Bot de discord para ver el estado del servidor de Fallin-Angels de Urban Terror.
 
 * Comandos:
 
-!map_en :: Obtiene la información del servidor en inglés.
-!map_es :: Obtiene la información del servidor en español.
-!next_map :: Obtiene la información del mapa siguiente.
-!hello :: Envía un saludo al usuario.
+- !map_en :: Obtiene la información del servidor en inglés.
+- !map_es :: Obtiene la información del servidor en español.
+- !next_map :: Obtiene la información del mapa siguiente.
+- !hello :: Envía un saludo al usuario.
+
+* Configuración
+
+Para usar el bot, es necesario tener instalado [[https://github.com/Rapptz/discord.py][discord.py]]. En caso de que no
+esté instalado, basta con ejecutar:
+
+#+begin_src sh
+pip3 install discord.py
+#+end_src
+
+Además hay que agregar una aplicación en la lista de aplicaciones del dueño del
+servidor. Una vez creado, hay que habilitar la opción de agregar un bot y tomar
+el token. Por default, este token debe estar en un archivo que debe existir en
+la carpeta home del usuario (Unix), con el nombre =~/.discord_token=. Una vez
+hecho esto, se lanza el bot de la siguiente forma en una terminal:
+
+#+begin_src sh
+cd src
+python3 bot.py
+#+end_src
