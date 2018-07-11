@@ -1,0 +1,13 @@
+#+title: Fallin-Angels Discord-Bot
+#+author: Miguel Piña
+#+date: [2018-07-11 mié 13:36]
+#+setupfile: ~/proyectos/org-html-themes/setup/theme-bigblow.setup
+
+Bot de discord para ver el estado del servidor de Fallin-Angels de Urban Terror.
+
+* Comandos:
+
+!map_en :: Obtiene la información del servidor en inglés.
+!map_es :: Obtiene la información del servidor en español.
+!next_map :: Obtiene la información del mapa siguiente.
+!hello :: Envía un saludo al usuario.
