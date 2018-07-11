@@ -22,6 +22,7 @@ Azules:\t {}\nTiempo del mapa:\t{}\nSiguiente Mapa:\t\t{}'.format(datos['mapa'],
                                                                   datos['tiempo'],
                                                                   datos['next_map'])
 
+
 def map_eng(data):
     return 'Map:\t\t\t\t{}\nFlags Limit:\t{}\nRed  Flags:\t\t{}\nBlue Flags:\t\t{}\n\
 Map Time:\t{}\nNext Map:\t{}'.format(data['mapa'],
@@ -31,15 +32,18 @@ Map Time:\t{}\nNext Map:\t{}'.format(data['mapa'],
                                      data['tiempo'],
                                      data['next_map'])
 
+
 def next_map():
     file_info = request.urlopen(URL)
     data = process_data(file_info.read().decode('utf-8'))
     return 'Next Map:      {}'.format(data['next_map'])
 
+
 def info_es():
     file_info = request.urlopen(URL)
     data = file_info.read().decode('utf-8')
     return mapa_esp(process_data(data))
+
 
 def info_en():
     file_info = request.urlopen(URL)
@@ -55,15 +59,16 @@ async def on_message(message):
 
     content = message.content.lower()
     switch = {
-        '!hello':   'Holis {0.author.mention}!'.format(message),
-        '!map_es':  'Holis {0.author.mention}!\n{1}'.format(message, info_es()),
-        '!map_en':  'Holis {0.author.mention}!\n{1}'.format(message, info_en()),
+        '!hello': 'Holis {0.author.mention}!'.format(message),
+        '!map_es': 'Holis {0.author.mention}!\n{1}'.format(message, info_es()),
+        '!map_en': 'Holis {0.author.mention}!\n{1}'.format(message, info_en()),
         '!next_map': 'Holis {0.author.mention}!\n{1}'.format(message, next_map())
     }
     msg = switch.get(content)
     if msg is None:
         return
     await client.send_message(message.channel, msg)
+
 
 @client.event
 async def on_ready():
