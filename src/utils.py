@@ -18,6 +18,8 @@ FNT2 = ImageFont.truetype(expanduser(
     '~/config/cfg/fonts/Input-BoldItalic_(InputMono-BoldItalic).ttf'), 16)
 FNT3 = ImageFont.truetype(expanduser(
     '~/config/cfg/fonts/Input-Bold_(InputMono-Bold).ttf'), 18)
+
+
 def get_token(filename):
     """Get the content of file."""
     with open(filename) as data:
@@ -67,7 +69,7 @@ def __get_img_loc(data):
     return local_img
 
 
-def generate_image(data):
+def generate_image_es(data):
     """Genera una nueva imagen."""
     local_img = __get_img_loc(data)
     img = Image.open(local_img)
@@ -80,7 +82,7 @@ def generate_image(data):
     text = ImageDraw.Draw(res)
     datos = process_data(data)
     text.text((10, 320), "Mapa Actual:", font=FNT, fill=(255, 255, 255))
-    text.text((195, 328), datos['mapa'], font=FNT2, fill=(255, 255, 255))
+    text.text((220, 328), datos['mapa'], font=FNT2, fill=(255, 255, 255))
     text.text((10, 380), "Limite Banderas:", font=FNT3, fill=(0, 0, 0))
     text.text((220, 383), datos['banderas'], font=FNT2, fill=(0, 0, 0))
     text.text((10, 410), "Banderas rojas:", font=FNT3, fill=(255, 0, 0))
@@ -89,8 +91,37 @@ def generate_image(data):
     text.text((220, 438), datos['azules'], font=FNT2, fill=(0, 0, 255))
     text.text((10, 460), "Tiempo del mapa:", font=FNT3, fill=(0, 0, 0))
     text.text((220, 463), datos['tiempo'], font=FNT2, fill=(0, 0, 0))
-    text.text((10, 485), "Siguiente mapa", font=FNT3, fill=(0, 0, 0))
+    text.text((10, 485), "Siguiente mapa:", font=FNT3, fill=(0, 0, 0))
     text.text((220, 488), datos['next_map'], font=FNT2, fill=(0, 0, 0))
     text_img = '/tmp/{}.jpg'.format(strftime("%Y-%m-%d-%H:%M:%S", gmtime()))
+    res.save(text_img)
+    return text_img
+
+
+def generate_image_en(data):
+    """Create a new image in english"""
+    local_img = __get_img_loc(data)
+    img = Image.open(local_img)
+    box = (0, 0, 600, 450)
+    resized = img.crop(box).resize((400, 300))
+    res = Image.new('RGB', (400, 600), color=(201, 201, 255))
+    color = Image.new('RGB', (400, 60), color=(73, 109, 137))
+    res.paste(resized)
+    res.paste(color, (0, 300, 400, 360))
+    text = ImageDraw.Draw(res)
+    datos = process_data(data)
+    text.text((10, 320), "Current Map:", font=FNT, fill=(255, 255, 255))
+    text.text((220, 328), datos['mapa'], font=FNT2, fill=(255, 255, 255))
+    text.text((10, 380), "Flags Limit:", font=FNT3, fill=(0, 0, 0))
+    text.text((220, 383), datos['banderas'], font=FNT2, fill=(0, 0, 0))
+    text.text((10, 410), "Red Flags:", font=FNT3, fill=(255, 0, 0))
+    text.text((220, 413), datos['rojas'], font=FNT2, fill=(255, 0, 0))
+    text.text((10, 435), "Blue Flags:", font=FNT3, fill=(0, 0, 255))
+    text.text((220, 438), datos['azules'], font=FNT2, fill=(0, 0, 255))
+    text.text((10, 460), "Map Time:", font=FNT3, fill=(0, 0, 0))
+    text.text((220, 463), datos['tiempo'], font=FNT2, fill=(0, 0, 0))
+    text.text((10, 485), "Next Map:", font=FNT3, fill=(0, 0, 0))
+    text.text((220, 488), datos['next_map'], font=FNT2, fill=(0, 0, 0))
+    text_img = '/tmp/{}_en.jpg'.format(strftime("%Y-%m-%d-%H:%M:%S", gmtime()))
     res.save(text_img)
     return text_img

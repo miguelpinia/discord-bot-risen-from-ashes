@@ -5,7 +5,7 @@
 from os.path import expanduser
 import urllib.request as request
 import discord
-from utils import get_token, process_data, generate_image
+from utils import get_token, process_data, generate_image_es, generate_image_en
 
 
 TOKEN = get_token(expanduser('~/.discord_token'))
@@ -60,7 +60,15 @@ def img_es():
     """Get a image with information about the current map in spanish."""
     file_info = request.urlopen(URL)
     data = file_info.read().decode('utf-8')
-    text = generate_image(data)
+    text = generate_image_es(data)
+    return text
+
+
+def img_en():
+    """Get a image with information about the current map in spanish."""
+    file_info = request.urlopen(URL)
+    data = file_info.read().decode('utf-8')
+    text = generate_image_en(data)
     return text
 
 
@@ -75,6 +83,14 @@ async def on_message(message):
 
     if content == '!info_es':
         text = img_es()
+        with open(text, 'rb') as archivo:
+            await client.send_file(
+                message.channel,
+                archivo,
+                content='Holis {0.author.mention}!'.format(message))
+        return
+    elif content == '!info_en':
+        text = img_en()
         with open(text, 'rb') as archivo:
             await client.send_file(
                 message.channel,
