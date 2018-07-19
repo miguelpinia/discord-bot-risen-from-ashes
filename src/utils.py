@@ -69,8 +69,7 @@ def __get_img_loc(data):
     return local_img
 
 
-def generate_image_es(data):
-    """Genera una nueva imagen."""
+def __image_base(data, labels, lan='es'):
     local_img = __get_img_loc(data)
     img = Image.open(local_img)
     box = (0, 0, 600, 450)
@@ -81,47 +80,41 @@ def generate_image_es(data):
     res.paste(color, (0, 300, 400, 360))
     text = ImageDraw.Draw(res)
     datos = process_data(data)
-    text.text((10, 320), "Mapa Actual:", font=FNT, fill=(255, 255, 255))
+    text.text((10, 320), labels['map'], font=FNT, fill=(255, 255, 255))
     text.text((220, 328), datos['mapa'], font=FNT2, fill=(255, 255, 255))
-    text.text((10, 380), "Limite Banderas:", font=FNT3, fill=(0, 0, 0))
+    text.text((10, 380), labels['limit'], font=FNT3, fill=(0, 0, 0))
     text.text((220, 383), datos['banderas'], font=FNT2, fill=(0, 0, 0))
-    text.text((10, 410), "Banderas rojas:", font=FNT3, fill=(255, 0, 0))
+    text.text((10, 410), labels['reds'], font=FNT3, fill=(255, 0, 0))
     text.text((220, 413), datos['rojas'], font=FNT2, fill=(255, 0, 0))
-    text.text((10, 435), "Banderas azules:", font=FNT3, fill=(0, 0, 255))
+    text.text((10, 435), labels['blues'], font=FNT3, fill=(0, 0, 255))
     text.text((220, 438), datos['azules'], font=FNT2, fill=(0, 0, 255))
-    text.text((10, 460), "Tiempo del mapa:", font=FNT3, fill=(0, 0, 0))
+    text.text((10, 460), labels['time'], font=FNT3, fill=(0, 0, 0))
     text.text((220, 463), datos['tiempo'], font=FNT2, fill=(0, 0, 0))
-    text.text((10, 485), "Siguiente mapa:", font=FNT3, fill=(0, 0, 0))
+    text.text((10, 485), labels['next'], font=FNT3, fill=(0, 0, 0))
     text.text((220, 488), datos['next_map'], font=FNT2, fill=(0, 0, 0))
-    text_img = '/tmp/{}.jpg'.format(strftime("%Y-%m-%d-%H:%M:%S", gmtime()))
-    res.save(text_img)
-    return text_img
+    t_img = '/tmp/{}_{}.jpg'.format(strftime("%Y-%m-%d-%H:%M:%S", gmtime()),
+                                    lan)
+    res.save(t_img)
+    return t_img
+
+
+def generate_image_es(data):
+    """Genera una nueva imagen."""
+    labels = {'map': 'Mapa actual:',
+              'limit': 'Límite banderas:',
+              'reds': 'Banderas rojas:',
+              'blues': 'Banderas azules:',
+              'time': 'Tiempo del mapa:',
+              'next': 'Siguiente mapa:'}
+    return __image_base(data, labels)
 
 
 def generate_image_en(data):
     """Create a new image in english"""
-    local_img = __get_img_loc(data)
-    img = Image.open(local_img)
-    box = (0, 0, 600, 450)
-    resized = img.crop(box).resize((400, 300))
-    res = Image.new('RGB', (400, 600), color=(201, 201, 255))
-    color = Image.new('RGB', (400, 60), color=(73, 109, 137))
-    res.paste(resized)
-    res.paste(color, (0, 300, 400, 360))
-    text = ImageDraw.Draw(res)
-    datos = process_data(data)
-    text.text((10, 320), "Current Map:", font=FNT, fill=(255, 255, 255))
-    text.text((220, 328), datos['mapa'], font=FNT2, fill=(255, 255, 255))
-    text.text((10, 380), "Flags Limit:", font=FNT3, fill=(0, 0, 0))
-    text.text((220, 383), datos['banderas'], font=FNT2, fill=(0, 0, 0))
-    text.text((10, 410), "Red Flags:", font=FNT3, fill=(255, 0, 0))
-    text.text((220, 413), datos['rojas'], font=FNT2, fill=(255, 0, 0))
-    text.text((10, 435), "Blue Flags:", font=FNT3, fill=(0, 0, 255))
-    text.text((220, 438), datos['azules'], font=FNT2, fill=(0, 0, 255))
-    text.text((10, 460), "Map Time:", font=FNT3, fill=(0, 0, 0))
-    text.text((220, 463), datos['tiempo'], font=FNT2, fill=(0, 0, 0))
-    text.text((10, 485), "Next Map:", font=FNT3, fill=(0, 0, 0))
-    text.text((220, 488), datos['next_map'], font=FNT2, fill=(0, 0, 0))
-    text_img = '/tmp/{}_en.jpg'.format(strftime("%Y-%m-%d-%H:%M:%S", gmtime()))
-    res.save(text_img)
-    return text_img
+    labels = {'map': 'Current Map:',
+              'limit': 'Flags Limit:',
+              'reds': 'Red Flags:',
+              'blues': 'Blue Flags:',
+              'time': 'Map Time:',
+              'next': 'Next map:'}
+    return __image_base(data, labels, 'en')
