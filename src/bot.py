@@ -70,6 +70,11 @@ def img_en():
     return text
 
 
+def tmplt(message, function):
+    """Returns a formated message."""
+    return 'Holis {0.author.mention}!\n{1}'.format(message, function())
+
+
 @client.event
 async def on_message(message):
     """Captura todos los mensajes del canal."""
@@ -78,28 +83,24 @@ async def on_message(message):
         return
 
     content = message.content.lower()
+    channel = message.channel
+    template = 'Holis {0.author.mention}!'.format(message)
 
-    if content == '!info_es':
-        text = img_es()
-        with open(text, 'rb') as archivo:
-            await client.send_file(
-                message.channel,
-                archivo,
-                content='Holis {0.author.mention}!'.format(message))
-        return
-    elif content == '!info_en':
-        text = img_en()
-        with open(text, 'rb') as archivo:
-            await client.send_file(
-                message.channel,
-                archivo,
-                content='Holis {0.author.mention}!'.format(message))
+    if 'info_' in content:
+        if content == '!info_es':
+            text = img_es()
+        elif content == '!info_en':
+            text = img_en()
+        else:
+            return
+        with open(text, 'rb') as arch:
+            await client.send_file(channel, arch, content=template)
         return
     switch = {
-        '!hello': 'Holis {0.author.mention}!'.format(message),
-        '!map_es': 'Holis {0.author.mention}!\n{1}'.format(message, info_es()),
-        '!map_en': 'Holis {0.author.mention}!\n{1}'.format(message, info_en()),
-        '!next_map': 'Holis {0.author.mention}!\n{1}'.format(message, next_map())
+        '!hello': template,
+        '!map_es': tmplt(message, info_es),
+        '!map_en': tmplt(message, info_en),
+        '!next_map': tmplt(message, next_map)
     }
     msg = switch.get(content)
     if msg is None:
