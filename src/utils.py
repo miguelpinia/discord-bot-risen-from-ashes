@@ -7,17 +7,14 @@ from re import compile as comp, sub
 import urllib.request as request
 from time import gmtime, strftime
 from pathlib import Path
-from os.path import expanduser
 from PIL import Image, ImageDraw, ImageFont
 
 
 SERVER = "https://fallin-angels.org"
-FNT = ImageFont.truetype(expanduser(
-    '~/config/cfg/fonts/Input-Bold_(InputMono-Bold).ttf'), 24)
-FNT2 = ImageFont.truetype(expanduser(
-    '~/config/cfg/fonts/Input-BoldItalic_(InputMono-BoldItalic).ttf'), 16)
-FNT3 = ImageFont.truetype(expanduser(
-    '~/config/cfg/fonts/Input-Bold_(InputMono-Bold).ttf'), 18)
+FNT = ImageFont.truetype('../deps/Input-Bold_(InputMono-Bold).ttf', 24)
+FNT2 = ImageFont.truetype(
+    '../deps/Input-BoldItalic_(InputMono-BoldItalic).ttf', 16)
+FNT3 = ImageFont.truetype('../deps/Input-Bold_(InputMono-Bold).ttf', 18)
 
 
 def get_token(filename):
