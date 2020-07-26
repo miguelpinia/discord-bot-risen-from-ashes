@@ -1,68 +1,54 @@
-#+title: Fallin-Angels Discord-Bot
+#+title: Risen From Ashes Discord-Bot
 #+author: Miguel Piña
 #+date: [2018-07-11 mié 13:36]
 #+setupfile: ~/proyectos/org-html-themes/setup/theme-bigblow.setup
 
+* About
 
-* Instrucciones Español
-
-Bot de discord para ver el estado del servidor de Fallin-Angels de Urban
-Terror. Esta aplicación funciona en Linux (y posiblemente bajo Mac, esto aún no
-está probado)
-
-** Instalación:
-
-Para usar está aplicación es necesario tener instalado *python 3.5+* más
-*virtualenv* y *pip*. Además hay que agregar una aplicación en la lista de
-aplicaciones del dueño del servidor. Una vez creado, hay que habilitar la opción
-de agregar un bot y tomar el token. Por default, este token debe estar en un
-archivo que debe existir en la carpeta home del usuario (Unix), con el nombre
-=~/.discord_token=.
-
-Una vez hecho esto, sólo hay que ejecutar el script *run.sh*, el cuál va a
-configurar todo lo necesario para ejecutar el bot en segundo plano (con la ayuda
-de [[https://linux.die.net/man/1/nohup][Nohup]]).
-
-Para detener el bot, basta con ejecutar el script *kill.sh* para matar el process
-del bot en la máquina.
-
-** Comandos:
-
-- !info_es :: Obtiene una imagen con la información del servidor en español.
-- !info_en :: Obtiene una imagen con la información del servidor en inglés.
-- !map_en :: Obtiene la información del servidor en inglés.
-- !map_es :: Obtiene la información del servidor en español.
-- !next_map :: Obtiene la información del mapa siguiente.
-- !hello :: Envía un saludo al usuario.
-
-
-* English Instructions
-
-This application works over Linux (and possibly under Mac, this not tested yet).
+Discord bot for check the status of RFA Server(Urban Terror). This app works
+over linux and possibly under Mac, not tested yet.
 
 ** Installation
 
-For use this application, you need have installed *python 3.5+*, plus *virtualenv*
-and *pip* in your machine. Aditionally, you need have configured a application
-with respective bot in your discord account associated with the server where you
-want use this. With all the above, the following is add a file with name
-=~/.discord_token=, where you will put the token of the bot.
+You need to have installed the following dependencies:
 
-Once this done, just execute the script *run.sh*, which will configure all the
-necessary for run the bot and execute the bot in background (with the help of
-[[https://linux.die.net/man/1/nohup][nohup]]).
+- Python 3.8+
+- pip: 20.1.1
+- virtualenv: 20.0.28
+
+Additionally, add the token of the bot in the file =~/.discord_token= (previously
+configured as [[https://discordpy.readthedocs.io/en/latest/discord.html][explained here]]). Once all the previous is done, just execute the
+script *run.sh*, which one will configure all the things necessary for run the bot
+in background (with help of [[https://linux.die.net/man/1/nohup][nohup]]). An example of how to do the previous, is the
+following:
+
+
+#+begin_src sh
+# Put the token in the file
+cd ~
+echo NDS2MDCXxMasdMjY2MTU3NTcz.11Qcyg.SkB123Mcj3phuqJGuXvRwNeqv0E > .discord_token
+# Clone the repository
+git clone git@github.com:miguelpinia/discord-bot-risen-from-ashes.git
+cd discord-bot-risen-from-ashes
+# Give exec permission and run
+chmod +x run.sh
+./run.sh
+#+end_src
 
 If you want stop the bot, just execute the script *kill.sh* for kill the process
 of the bot in the machine.
 
-** Commands
+#+begin_src sh
+./kill.sh
+#+end_src
 
-The bot has next commands:
+** Usage
 
-- !info_en :: Get an image with the info of current map in the server in english.
-- !info_es :: Get an image with the info of current map in the server in
-              spanish.
-- !map_en :: Get information about the current map in the server in english.
-- !map_es :: Get information about the current map in the server in spanish.
-- !next_map :: Get the name of the next map.
-- !hello :: Gives a greeting to the user who invokes the command.
+In discord, the available commands are:
+
+- -rfabot :: calls the help system
+- -hello :: return a greeting to user
+- -info :: display a message with information about the current map and
+           related stuff
+- -infomap :: display a image with the information about the current map and
+              related stuff
