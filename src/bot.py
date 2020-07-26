@@ -2,12 +2,13 @@
 
 """Discord-bot Module"""
 
-from os.path import expanduser
+import os
 import urllib.request as request
 from re import compile as comp, sub
 from pathlib import Path
 from time import strftime, localtime
 from PIL import Image, ImageDraw, ImageFont
+
 import discord
 from discord.ext import commands
 
@@ -18,15 +19,17 @@ def get_token(filename):
         return data.readline()
 
 
-TOKEN = get_token(expanduser('~/.discord_token'))
+TOKEN = get_token(os.path.expanduser('~/.discord_token'))
 SERVER = 'https://risenfromashes.us'
 INFO = '/info/serverinfo.php'
 URL = SERVER + INFO
 LARGE = '/rfamaps/content/bin/images/large/'
-FNT = ImageFont.truetype('../deps/Input-Bold_(InputMono-Bold).ttf', 24)
-FNT2 = ImageFont.truetype(
-    '../deps/Input-BoldItalic_(InputMono-BoldItalic).ttf', 16)
-FNT3 = ImageFont.truetype('../deps/Input-Bold_(InputMono-Bold).ttf', 18)
+BOLD = os.path.abspath('deps/Input-Bold_(InputMono-Bold).ttf')
+ITALIC = os.path.abspath('deps/Input-BoldItalic_(InputMono-BoldItalic).ttf')
+REGULAR = os.path.abspath('deps/Input-Regular_(InputMono-Regular).ttf')
+FNT = ImageFont.truetype(BOLD, 24)
+FNT2 = ImageFont.truetype(ITALIC, 16)
+FNT3 = ImageFont.truetype(REGULAR, 18)
 
 client = commands.Bot(command_prefix='-')
 
@@ -225,7 +228,6 @@ def help_embed(message):
     content = message.content.lower()
     received = content.split()
     exists_command = len(received) > 1
-
     embed = discord.Embed(
         title='Help',
         colour=discord.Colour.dark_magenta(),
@@ -247,7 +249,6 @@ def help_embed(message):
         embed.description = 'Use `-rfabot «command»` to view help on a specific command.'
         embed.add_field(name='All Commands | ' + str(len(cmds)),
                         value='`' + '`, `'.join(cmds) + '`', inline=False)
-
     return embed
 
 
@@ -257,7 +258,6 @@ async def on_message(message):
     if message.author == client.user:
         return
     content = message.content.lower()
-    print(content)
     channel = message.channel
     template = 'Hello {0.author.mention}!'.format(message)
     server_info = SERVER + INFO
