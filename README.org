@@ -16,7 +16,7 @@ You need to have installed the following dependencies:
 - pip: 20.1.1
 - virtualenv: 20.0.28
 
-Additionally, add the token of the bot in the file =~/.discord_token= (previously
+Additionally, add the token for the bot in file =~/.discord_token= (previously
 configured as [[https://discordpy.readthedocs.io/en/latest/discord.html][explained here]]). Once all the previous is done, just execute the
 script *run.sh*, which one will configure all the things necessary for run the bot
 in background (with help of [[https://linux.die.net/man/1/nohup][nohup]]). An example of how to do the previous, is the
@@ -36,7 +36,7 @@ chmod +x run.sh
 #+end_src
 
 If you want stop the bot, just execute the script *kill.sh* for kill the process
-of the bot in the machine.
+in the machine.
 
 #+begin_src sh
 ./kill.sh
