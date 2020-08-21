@@ -277,7 +277,7 @@ async def on_message(message):
         iembed = info_embed(params)
         await channel.send(embed=iembed)
         return
-    if content.startswith('-rfabot'):
+    if content.startswith('-rfabot') or content.startswith('-help'):
         hembed = help_embed(message)
         await channel.send(embed=hembed)
         return
@@ -290,7 +290,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    activity = discord.Game('-rfabot for help')
+    activity = discord.Game('"-rfabot" or "-help" for help')
     await client.change_presence(activity=activity)
 
 client.run(TOKEN)
