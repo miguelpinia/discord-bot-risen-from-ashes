@@ -2,7 +2,6 @@
 
 """Discord-bot Module"""
 
-
 import logging
 import os
 from pathlib import Path
@@ -230,10 +229,13 @@ def players_embed():
     )
     embed.set_thumbnail(
         url='https://risenfromashes.us/phpBB3/styles/digi_darkblue/theme/images/logo.png')
-    pplayers = '```{}```'.format('\n'.join(['-Player: {}\n\tScore: {}\n\tPing:{}'.
-                                            format(
-                                                player[0], player[1], player[2])
-                                            for player in players]))
+
+    pplayers = '{}'.format('\n'.join(['**{}**\n> score: {}\n> ping: {}\n'.
+                                      format(player[0],
+                                             player[1],
+                                             player[2])
+                                      for player in players]))
+    logging.info(pplayers)
     embed.add_field(name='Players', value=pplayers, inline=False)
     return embed
 
