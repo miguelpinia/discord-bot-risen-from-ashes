@@ -11,4 +11,4 @@ virtualenv -p python3 ${venv} &&
     source ${venvbin}/activate &&
     pip install -r requirements.txt &&
     echo $(which python) &&
-    nohup python src/bot.py 2>&1 | tee log.txt &
+    nohup python src/bot.py &
