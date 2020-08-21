@@ -290,7 +290,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    activity = discord.Game('"-rfabot" or "-help" for help')
+    activity = discord.Game('"-help" or "-rfabot" for help')
     await client.change_presence(activity=activity)
 
 client.run(TOKEN)
