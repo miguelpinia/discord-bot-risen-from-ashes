@@ -37,7 +37,7 @@ FNT3 = ImageFont.truetype(REGULAR, 18)
 
 logging.basicConfig(
     filename='bot.log',
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='%(asctime)s:%(levelname)s:%(message)s',
     datefmt='%m/%d/%Y %I:%M:%S %p')
 logging.debug('Beggining debugging')
@@ -346,7 +346,7 @@ async def on_message(message):
         return
     if content.startswith('-players'):
         psembed = players_embed()
-        logging.debug(psembed)
+        logging.info(psembed)
         await channel.send(embed=psembed)
         return
     if content.startswith('-player'):
