@@ -2,16 +2,19 @@
 
 """Discord-bot Module"""
 
-from players import get_players, is_playing
+
+import logging
 import os
-import urllib.request as request
-from re import compile as comp, sub
 from pathlib import Path
+from re import compile as comp, sub
 from time import strftime, localtime
+import urllib.request as request
+
 from PIL import Image, ImageDraw, ImageFont
 
 import discord
 from discord.ext import commands
+from players import get_players, is_playing
 
 
 def get_token(filename):
@@ -31,6 +34,13 @@ REGULAR = os.path.abspath('deps/Input-Regular_(InputMono-Regular).ttf')
 FNT = ImageFont.truetype(BOLD, 24)
 FNT2 = ImageFont.truetype(ITALIC, 16)
 FNT3 = ImageFont.truetype(REGULAR, 18)
+
+logging.basicConfig(
+    filename='bot.log',
+    level=logging.DEBUG,
+    format='%(asctime)s:%(levelname)s:%(message)s',
+    datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.debug('Beggining debugging')
 
 client = commands.Bot(command_prefix='-')
 
@@ -308,7 +318,7 @@ def help_embed(message):
 @client.event
 async def on_message(message):
     """Listener for the messages sent by the discord users."""
-    print('Author: {}; channel: {}, message: {}'.format(
+    logging.info('Author: {}; channel: {}, message: {}'.format(
         message.author, message.channel, message.content))
     if message.author == client.user:
         return
@@ -336,6 +346,7 @@ async def on_message(message):
         return
     if content.startswith('-players'):
         psembed = players_embed()
+        logging.debug(psembed)
         await channel.send(embed=psembed)
         return
     if content.startswith('-player'):
