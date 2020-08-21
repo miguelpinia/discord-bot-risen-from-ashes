@@ -7,8 +7,8 @@ if [ -d ${venv} ]; then
         rm -rf ${venv}
 fi
 
-virtualenv -p python3.8 ${venv} &&
+virtualenv -p python3 ${venv} &&
     source ${venvbin}/activate &&
     pip install -r requirements.txt &&
     echo $(which python) &&
-    nohup python src/bot.py > log.txt 2>&1 &
+    nohup python src/bot.py 2>&1 | tee log.txt &
