@@ -255,6 +255,8 @@ def help_embed(message):
 @client.event
 async def on_message(message):
     """Listener for the messages sent by the discord users."""
+    print('Author: {}; channel: {}, message: {}'.format(
+        message.author, message.channel, message.content))
     if message.author == client.user:
         return
     content = message.content.lower()
