@@ -2,6 +2,7 @@
 
 """Discord-bot Module"""
 
+from players import get_players, is_playing
 import os
 import urllib.request as request
 from re import compile as comp, sub
@@ -36,13 +37,17 @@ client = commands.Bot(command_prefix='-')
 cmd_desc = {
     'hello': 'Prints a hello message',
     'info': 'Display a message with the information about the current map in the server',
-    'infomap': 'Display a image with the information about the current map in the server'
+    'infomap': 'Display a image with the information about the current map in the server',
+    'players': 'Get the list of players',
+    'player': 'Check if a player is in game, by example: -player niqui'
 }
 
 cmd_usages = {
     'hello': '-hello',
     'info': '-info',
     'infomap': '-infomap'
+    'players': '-players'
+    'player': '-player "name"'
 }
 
 
@@ -175,6 +180,53 @@ def build_image_map():
     return path_image_map
 
 
+def player_embed(message):
+    content = message.content.lower()
+    received = content.split()
+    exists_params = len(received) > 1
+    embed = discord.Embed(
+        title='Is playing?',
+        colour=discord.Colour.dark_magenta(),
+        url=SERVER
+    )
+    embed.set_author(
+        name='Hello {}!'.format(message.author.name),
+        icon_url=message.author.avatar_url)
+    if exists_params:
+        players = get_players()
+        player = received[1]
+        playing = is_playing(players, player)
+        if playing:
+            embed.description('{} is playing')
+        else:
+            embed.description('{} isn\'t playing')
+    else:
+        embed.description('You must supply the name of one player')
+    return embed
+
+
+def players_embed():
+    """
+    Returns a embed message with the list of current players.
+    """
+    players = get_players()
+    embed = discord.Embed(
+        title='Player list',
+        description='Current players in game',
+        colour=discord.Colour.dark_magenta(),
+        url=SERVER + INFO)
+    embed.set_footer(
+        text='https://risenfromashes.us/',
+    )
+    embed.set_image(url=url_remote_image)
+    embed.set_thumbnail(
+        url='https://risenfromashes.us/phpBB3/styles/digi_darkblue/theme/images/logo.png')
+    pplayers = '\n'.join(['**Player**: {}\t**Score**: {}'.
+                          format(player[0], player[1]) for player in players])
+    embed.add_field(name='Players', value=pplayers, inline=False)
+    return embed
+
+
 def info_embed(params):
     """
     Returns a embed message with the information about the current
@@ -184,8 +236,8 @@ def info_embed(params):
     url_remote_image = '{}{}{}'.format(SERVER, LARGE, name_map)
     embed = discord.Embed(
         title='Current map',
-        description='Number of **' +
-        params['players'] + '**\nCurrent map: **' + params['map'] + '**\n\n\n',
+        description='Number of **{}**\nCurrent map: **{}**\n\n\n'.format(
+            params['players'], params['map']),
         colour=discord.Colour.dark_magenta(),
         url=SERVER + INFO
     )
@@ -224,7 +276,7 @@ def help_embed(message):
     Returns a embed message with helpful information about the
     commands and the help system.
     """
-    cmds = ['hello', 'info', 'infomap']
+    cmds = ['hello', 'info', 'infomap', 'players', 'player']
     content = message.content.lower()
     received = content.split()
     exists_command = len(received) > 1
@@ -280,6 +332,14 @@ async def on_message(message):
     if content.startswith('-rfabot') or content.startswith('-help'):
         hembed = help_embed(message)
         await channel.send(embed=hembed)
+        return
+    if content.startswith('-players'):
+        psembed = players_embed()
+        await channel.send(embed=psembed)
+        return
+    if content.startswith('-player'):
+        pembed = player_embed(message)
+        await channel.send(embed=pembed)
         return
 
 
