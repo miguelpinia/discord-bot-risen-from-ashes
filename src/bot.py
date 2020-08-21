@@ -45,8 +45,8 @@ cmd_desc = {
 cmd_usages = {
     'hello': '-hello',
     'info': '-info',
-    'infomap': '-infomap'
-    'players': '-players'
+    'infomap': '-infomap',
+    'players': '-players',
     'player': '-player "name"'
 }
 
