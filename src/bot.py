@@ -197,11 +197,11 @@ def player_embed(message):
         player = received[1]
         playing = is_playing(players, player)
         if playing:
-            embed.description = '{} is playing'.format(player)
+            embed.description = '😁 {} is playing'.format(player)
         else:
-            embed.description = '{} isn\'t playing'.format(player)
+            embed.description = '😢 {} isn\'t playing'.format(player)
     else:
-        embed.description = 'You must supply the name of one player'
+        embed.description = '😕 You must supply the name of one player'
     return embed
 
 
