@@ -197,9 +197,9 @@ def player_embed(message):
         player = received[1]
         playing = is_playing(players, player)
         if playing:
-            embed.description('{} is playing')
+            embed.description('{} is playing'.format(player))
         else:
-            embed.description('{} isn\'t playing')
+            embed.description('{} isn\'t playing'.format(player))
     else:
         embed.description('You must supply the name of one player')
     return embed
@@ -218,7 +218,6 @@ def players_embed():
     embed.set_footer(
         text='https://risenfromashes.us/',
     )
-    embed.set_image(url=url_remote_image)
     embed.set_thumbnail(
         url='https://risenfromashes.us/phpBB3/styles/digi_darkblue/theme/images/logo.png')
     pplayers = '\n'.join(['**Player**: {}\t**Score**: {}'.
