@@ -181,8 +181,8 @@ def build_image_map():
 
 
 def player_embed(message):
-    content = message.content.lower()
-    received = content.split()
+    received = message.content.split()
+    print(received)
     exists_params = len(received) > 1
     embed = discord.Embed(
         title='Is playing?',
