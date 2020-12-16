@@ -229,14 +229,22 @@ def players_embed():
     )
     embed.set_thumbnail(
         url='https://risenfromashes.us/phpBB3/styles/digi_darkblue/theme/images/logo.png')
+    middle = len(players) // 2
 
-    pplayers = '{}'.format('\n'.join(['**{}**\n> score: {}\n> ping: {}\n'.
-                                      format(player[0],
-                                             player[1],
-                                             player[2])
-                                      for player in players]))
-    logging.info(pplayers)
-    embed.add_field(name='Players', value=pplayers, inline=False)
+    pplayers1 = '{}'.format('\n'.join(['**{}**\n> score: {}\n> ping: {}\n'.
+                                       format(player[0],
+                                              player[1],
+                                              player[2])
+                                       for player in players[:middle]]))
+    pplayers2 = '{}'.format('\n'.join(['**{}**\n> score: {}\n> ping: {}\n'.
+                                       format(player[0],
+                                              player[1],
+                                              player[2])
+                                       for player in players[middle:]]))
+    logging.info(pplayers1)
+    logging.info(pplayers2)
+    embed.add_field(name='🎮', value=pplayers1, inline=False)
+    embed.add_field(name='🕹', value=pplayers2, inline=False)
     return embed
 
 
