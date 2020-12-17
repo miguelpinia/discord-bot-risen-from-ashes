@@ -15,6 +15,7 @@ COMMAND_DESC = {
     'hello': 'Prints a hello message',
     'info': 'Display a message with the information about the current map in the server',
     'infomap': 'Display a image with the information about the current map in the server',
+    'playerlist': 'Get the list of players nicely formatted',
     'players': 'Get the list of players',
     'player': 'Check if a player is in game, by example: -player niqui'
 }
@@ -23,6 +24,7 @@ COMMAND_USAGE = {
     'hello': '-hello',
     'info': '-info',
     'infomap': '-infomap',
+    'playerlist': '-playerlist',
     'players': '-players',
     'player': '-player "name"'
 }

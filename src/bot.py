@@ -14,7 +14,7 @@ from discord.ext import commands
 from constants import SERVER, INFO, LARGE, BOLD, ITALIC, REGULAR,COMMAND_DESC, COMMAND_USAGE, LOGO, ICON, GIT_URL
 from players import get_players, is_playing
 from utils import get_params_from_html, image_current_map
-from embeds import player_embed, players_embed, info_embed, help_embed
+from embeds import player_embed, players_embed, info_embed, help_embed, playerlist_embed
 
 
 def get_token(filename):
@@ -73,6 +73,10 @@ async def on_message(message):
     if content.startswith('-rfabot') or content.startswith('-help'):
         hembed = help_embed(message)
         await channel.send(embed=hembed)
+        return
+    if content.startswith('-playerlist'):
+        nembed, img = playerlist_embed(message)
+        await channel.send(embed=nembed, file=img)
         return
     if content.startswith('-players'):
         psembed = players_embed()

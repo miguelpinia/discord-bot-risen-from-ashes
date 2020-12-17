@@ -2,7 +2,7 @@ import logging
 import discord
 from discord.ext import commands
 
-from players import get_players, is_playing
+from players import get_players, is_playing, generate_image
 from constants import SERVER, INFO, LARGE, BOLD, ITALIC, REGULAR,COMMAND_DESC, COMMAND_USAGE, LOGO, ICON, GIT_URL
 
 def player_embed(message):
@@ -60,6 +60,21 @@ def players_embed():
     embed.add_field(name='🕹', value=pplayers2, inline=False)
     return embed
 
+def playerlist_embed(message):
+    img = generate_image()
+    fimg = discord.File(img)
+    embed = discord.Embed(
+        title = 'Player list',
+        description='Current players in game 🎮🕹',
+        colour=discord.Colour.dark_magenta(),
+        url=SERVER+INFO)
+    embed.set_footer(text='https://risenfromashes.us/')
+    embed.set_thumbnail(
+        url='https://risenfromashes.us/phpBB3/styles/digi_darkblue/theme/images/logo.png'
+    )
+    embed.set_image(url='attachment://players.jpg')
+    return embed, fimg
+
 
 def info_embed(params):
     """
@@ -107,7 +122,7 @@ def help_embed(message):
     Returns a embed message with helpful information about the
     commands and the help system.
     """
-    cmds = ['hello', 'info', 'infomap', 'players', 'player']
+    cmds = ['hello', 'info', 'infomap', 'playerlist', 'players', 'player']
     content = message.content.lower()
     received = content.split()
     exists_command = len(received) > 1
