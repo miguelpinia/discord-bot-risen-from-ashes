@@ -2,6 +2,7 @@
 
 """Discord-bot Module"""
 
+import os
 import logging
 from time import strftime, localtime
 import urllib.request as request
