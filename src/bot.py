@@ -43,6 +43,7 @@ def build_image_map():
     path_image_map = image_current_map(params)
     return path_image_map
 
+
 @client.event
 async def on_message(message):
     """Listener for the messages sent by the discord users."""
