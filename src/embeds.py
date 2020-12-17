@@ -1,9 +1,9 @@
-from src.players import get_players, is_playing
-from src.constants import SERVER, INFO, LARGE, BOLD, ITALIC, REGULAR,COMMAND_DESC, COMMAND_USAGE, LOGO, ICON, GIT_URL
-
 import logging
 import discord
 from discord.ext import commands
+
+from players import get_players, is_playing
+from constants import SERVER, INFO, LARGE, BOLD, ITALIC, REGULAR,COMMAND_DESC, COMMAND_USAGE, LOGO, ICON, GIT_URL
 
 def player_embed(message):
     received = message.content.split()

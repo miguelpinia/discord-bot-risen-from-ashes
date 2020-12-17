@@ -8,12 +8,12 @@ import urllib.request as request
 
 import discord
 from discord.ext import commands
-from src.players import get_players, is_playing
 
-from src.constants import SERVER, INFO, LARGE, BOLD, ITALIC, REGULAR,COMMAND_DESC, COMMAND_USAGE, LOGO, ICON, GIT_URL
 
-from src.utils import get_params_from_html, image_current_map
-from src.embeds import player_embed, players_embed, info_embed, help_embed
+from constants import SERVER, INFO, LARGE, BOLD, ITALIC, REGULAR,COMMAND_DESC, COMMAND_USAGE, LOGO, ICON, GIT_URL
+from players import get_players, is_playing
+from utils import get_params_from_html, image_current_map
+from embeds import player_embed, players_embed, info_embed, help_embed
 
 
 def get_token(filename):

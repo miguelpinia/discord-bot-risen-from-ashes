@@ -5,7 +5,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from time import strftime, localtime
 
-from src.constants import BOLD, ITALIC, REGULAR, SERVER, LARGE
+from constants import BOLD, ITALIC, REGULAR, SERVER, LARGE
 
 FONT1 = ImageFont.truetype(os.path.abspath(BOLD), 24)
 FONT2 = ImageFont.truetype(os.path.abspath(ITALIC), 16)
