@@ -7,7 +7,7 @@ ITALIC = 'deps/Input-BoldItalic_(InputMono-BoldItalic).ttf'
 REGULAR = 'deps/Input-Regular_(InputMono-Regular).ttf'
 LOGO = 'https://risenfromashes.us/phpBB3/styles/digi_darkblue/theme/images/logo.png'
 
-ICON = 'https://cdn.discordapp.com/avatars/614999407233859622/2a613a71917c27bd89f8a06b145b95ed.png?size=128'
+ICON = 'https://avatarfiles.alphacoders.com/129/129094.jpg'
 
 GIT_URL = 'https://github.com/miguelpinia/discord-bot-risen-from-ashes'
 

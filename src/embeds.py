@@ -84,7 +84,7 @@ def info_embed(params):
     name_map = params['img_map'].split('/')[-1]
     url_remote_image = '{}{}{}'.format(SERVER, LARGE, name_map)
     embed = discord.Embed(
-        title='Current map',
+        title='🎲☑️ Current map',
         description='Number of **{}**\nCurrent map: **{}**\n\n\n'.format(
             params['players'], params['map']),
         colour=discord.Colour.dark_magenta(),
@@ -100,19 +100,19 @@ def info_embed(params):
         icon_url=ICON,
         url=GIT_URL)
     embed.add_field(
-        name='😴 Capture Limit',
+        name='🏳️ Capture Limit',
         value=params['capturelimit'],
         inline=False)
     embed.add_field(
-        name='😱 Next Map 1',
+        name='▶ Next Map 1',
         value=params['nextmap1'],
         inline=False)
     embed.add_field(
-        name='🙄 Next Map 2',
+        name='⏩ Next Map 2',
         value=params['nextmap2'],
         inline=False)
     embed.add_field(
-        name='🥰 Next Map 3',
+        name='⏭ Next Map 3',
         value=params['nextmap3'],
         inline=False)
     return embed
