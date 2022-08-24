@@ -1,6 +1,8 @@
 import os
+import logging
 from re import compile as comp, sub
 import urllib.request as request
+from urllib.error import URLError, HTTPError
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from time import strftime, localtime
@@ -13,9 +15,22 @@ FONT3 = ImageFont.truetype(os.path.abspath(REGULAR), 18)
 
 def get_html_content(server_url):
     """Retrieve the html content from the `server_url` specified."""
-    html = request.urlopen(server_url)
-    html = html.read().decode('utf-8')
-    return html
+    try:
+        html = request.urlopen(server_url)
+    except HTTPError as e:
+        logging.info('Error de conexion, código: {}, razón: {}, cabecera: {}'.format(e.code,
+                                                                                     e.reason,
+                                                                                     e.headers))
+        return ''
+    except URLError as e:
+        logging.info('Error de conexion, razón: {}'.format(e.reason))
+        return ''
+    except TimeoutError as e:
+        logging.info('Error de timeout, razón: {}'.format(e.strerror))
+        return ''
+    else:
+        html = html.read().decode('utf-8')
+        return html
 
 def string_filter(query, content):
     """
