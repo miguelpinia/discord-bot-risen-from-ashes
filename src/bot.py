@@ -116,13 +116,14 @@ class LoopInfo(commands.Cog):
         channel = self.bot.get_channel(int(CHANNEL))
         server_info = SERVER + INFO
         params = get_params_from_html(server_info)
-        logging.info('Current map: {}, map params: {}'.format(self.current,
-                                                              params['map']))
-        if self.current != params['map']:
-            self.current = params['map']
-            logging.info('Channel {}, params: {}'.format(channel, params))
-            embed = info_embed(params)
-            await channel.send(content='@here The map has changed', embed=embed)
+        if any(params):
+            logging.info('Current map: {}, map params: {}'.format(self.current,
+                                                                  params['map']))
+            if self.current != params['map']:
+                self.current = params['map']
+                logging.info('Channel {}, params: {}'.format(channel, params))
+                embed = info_embed(params)
+                await channel.send(content='@here The map has changed', embed=embed)
 
 @client.event
 async def on_message(message):
