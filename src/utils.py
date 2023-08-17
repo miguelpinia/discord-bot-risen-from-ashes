@@ -2,6 +2,7 @@ import os
 import logging
 from re import compile as comp, sub
 import urllib.request as request
+from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
@@ -15,8 +16,9 @@ FONT3 = ImageFont.truetype(os.path.abspath(REGULAR), 18)
 
 def get_html_content(server_url):
     """Retrieve the html content from the `server_url` specified."""
+    req = Request(server_url)
     try:
-        html = request.urlopen(server_url)
+        html = request.urlopen(req)
     except HTTPError as e:
         logging.info('Error de conexion, código: {}, razón: {}, cabecera: {}'.format(e.code,
                                                                                      e.reason,
@@ -27,6 +29,9 @@ def get_html_content(server_url):
         return ''
     except TimeoutError as e:
         logging.info('Error de timeout, razón: {}'.format(e.strerror))
+        return ''
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
         return ''
     else:
         html = html.read().decode('utf-8')
@@ -65,9 +70,10 @@ def get_params_from_html(server_url):
     - nextmap3
     - img_nextmap3
     - capturelimit
-    - players
-    """
+    - players"""
     html = get_html_content(server_url)
+    if html == '':
+        return {}
     html_rows = html.split('\n')
     indexes = {'idx_mapname': string_filter('mapname', html)[0][0],
                'idx_nextmap1': string_filter('nextmap1', html)[0][0],
